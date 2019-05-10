@@ -5,7 +5,7 @@ services:
     image: sameersbn/postgresql:latest
     container_name: postgres-miniflux
     environment:
-      - DB_NAME=miniflux
+      - DB_NAME=miniflux2
       - PG_PASSWORD=miniflux # please change the password
     volumes:
       - ~/postgres/data/:/var/lib/postgresql/ # persist postgres data to ~/postgres/data/ on the host
@@ -20,6 +20,7 @@ services:
       - WORKER_POOL_SIZE=5
       - POLLING_FREQUENCY=60
       - BATCH_SIZE=10
+      - RUN_MIGRATIONS=1
       - BASE_URL=http://localhost/ #please change to your domain
       - DATABASE_URL= host=database.postgres user=postgres password=miniflux dbname=miniflux2 sslmode=disable #please change the password
       - DATABASE_MAX_CONNS=20
