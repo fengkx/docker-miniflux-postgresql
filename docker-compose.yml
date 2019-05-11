@@ -17,12 +17,10 @@ services:
       - 2507:8080
     environment: #see all env at https://miniflux.app/docs/configuration.html
       - DEBUG
-      - WORKER_POOL_SIZE=5
-      - POLLING_FREQUENCY=60
-      - BATCH_SIZE=10
       - RUN_MIGRATIONS=1
       - BASE_URL=http://localhost/ #please change to your domain
-      - DATABASE_URL= host=database.postgres user=postgres password=miniflux dbname=miniflux2 sslmode=disable #please change the password
+      #please change the password in DATABASE_URL the same as PG_PASSWORD above
+      - DATABASE_URL= host=database.postgres user=postgres password=miniflux dbname=miniflux2 sslmode=disable
       - DATABASE_MAX_CONNS=20
       - DATABASE_MIN_CONNS=1
       - ARCHIVE_READ_DAYS=60
@@ -35,3 +33,11 @@ services:
     tty: true
     restart: always
     command: sh -c /usr/bin/miniflux
+
+  service.mercury: # set Mercury Parser API endpoint to `http://service.mercury:3000/parser` on miniflux seeting
+    image: wangqiru/mercury-parser-api:latest
+    container_name: mercury-miniflux
+    expose:
+      - 3000
+    restart: always
+
