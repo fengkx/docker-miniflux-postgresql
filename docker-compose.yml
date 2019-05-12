@@ -29,8 +29,6 @@ services:
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=password #please change the password
       - REQUEST_MAX_TIMEOUT=20
-    stdin_open: true
-    tty: true
     restart: always
     command: sh -c /usr/bin/miniflux
 
