@@ -13,7 +13,7 @@ It is currently using [my fork of miniflux](https://github.com/fengkx/miniflux/t
 
 It has these features haven't been merged to miniflux master
 
-1. https://github.com/miniflux/miniflux/pull/372
-1. ~~https://github.com/miniflux/miniflux/pull/373~~
-1. https://github.com/miniflux/miniflux/issues/374
-1. https://github.com/miniflux/miniflux/pull/392
+1. [Regex filter for entry title and content](https://github.com/miniflux/miniflux/pull/372)
+2. ~~[Configuratble request timeout for slow network](https://github.com/miniflux/miniflux/pull/373) by setting `REQUEST_MAX_TIMEOUT` env~~
+3. [Mercury parser API support](https://github.com/miniflux/miniflux/issues/374)
+4. [font-src header for stylus](https://github.com/miniflux/miniflux/pull/392)
