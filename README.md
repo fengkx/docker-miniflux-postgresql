@@ -16,3 +16,4 @@ It has these features haven't been merged to miniflux master
 1. https://github.com/miniflux/miniflux/pull/372
 1. ~~https://github.com/miniflux/miniflux/pull/373~~
 1. https://github.com/miniflux/miniflux/issues/374
+1. https://github.com/miniflux/miniflux/pull/392
