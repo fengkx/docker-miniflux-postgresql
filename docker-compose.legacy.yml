@@ -1,34 +1,36 @@
+
 version: "3"
 services:
   database.postgres:
-    image: hoilc/postgres-chinese-textsearch:latest
+    image: sameersbn/postgresql:latest
     container_name: postgres-miniflux
     environment:
-      - POSTGRES_DB=miniflux2
-      - POSTGRES_PASSWORD=miniflux # please change the password
+      - DB_NAME=miniflux2
+      - PG_PASSWORD=miniflux # please change the password
     volumes:
-      - ~/postgres/data/:/var/lib/postgresql/data # persist postgres data to ~/postgres/data/ on the host
+      - ~/postgres/data/:/var/lib/postgresql/ # persist postgres data to ~/postgres/data/ on the host
     restart: always
   service.rss:
     image: fengkx/miniflux:amd64-latest
     container_name: miniflux
     ports:
-      - 1541:8080
+      - 2507:8080
     environment: #see all env at https://miniflux.app/docs/configuration.html
       - DEBUG
       - WORKER_POOL_SIZE=5
-      - POLLING_FREQUENCY=45
-      - BATCH_SIZE=50
+      - POLLING_FREQUENCY=60
+      - BATCH_SIZE=10
       - RUN_MIGRATIONS=1
       - BASE_URL=http://localhost/ #please change to your domain
-      - DATABASE_URL= host=database.postgres user=postgres password=miniflux dbname=miniflux2 sslmode=disable #please change the password
+      #please change the password in DATABASE_URL the same as PG_PASSWORD above
+      - DATABASE_URL= host=database.postgres user=postgres password=miniflux dbname=miniflux2 sslmode=disable
       - DATABASE_MAX_CONNS=20
       - DATABASE_MIN_CONNS=1
-      - CLEANUP_ARCHIVE_READ_DAYS=60
+      - ARCHIVE_READ_DAYS=60
       - PORT=8080
       - CREATE_ADMIN=1
       - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=password
+      - ADMIN_PASSWORD=password #please change the password
       - HTTP_CLIENT_TIMEOUT=20
     restart: always
     command: sh -c /usr/bin/miniflux
