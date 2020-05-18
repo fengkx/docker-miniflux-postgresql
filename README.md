@@ -1,6 +1,11 @@
 # docker-miniflux-postgresql
 docker of miniflux RSS Reader with PostgreSQL in docker-compose
 
+# Highlights
+This docker-compose use [hoilc/postgres-chinese-textsearch](https://github.com/hoilc/postgres-chinese-textsearch) to add chinese fulltext search support. 
+
+But it do well in English or any other space splitted language.
+
 # Usage
 1. change the environment variable in `docker-compose.yml` as you need
 
