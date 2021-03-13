@@ -1,17 +1,18 @@
 version: "3"
 services:
   database.postgres:
-    image: hoilc/postgres-chinese-textsearch:latest
+    image: fengkx/postgres:13-alpine
     container_name: postgres-miniflux
     environment:
-      - POSTGRES_DB=miniflux2
       - POSTGRES_PASSWORD=miniflux # please change the password
     volumes:
-      - ~/postgres/data/:/var/lib/postgresql/data # persist postgres data to ~/postgres/data/ on the host
+      - ~/postgres/data:/var/lib/postgresql/data # persist postgres data to ~/postgres/data/ on the host
     restart: always
   service.rss:
-    image: fengkx/miniflux:amd64-latest
+    image: miniflux/miniflux:latest 
     container_name: miniflux
+    depends_on:
+      - database.postgres
     ports:
       - 1541:8080
     environment: #see all env at https://miniflux.app/docs/configuration.html
@@ -20,22 +21,15 @@ services:
       - POLLING_FREQUENCY=45
       - BATCH_SIZE=50
       - RUN_MIGRATIONS=1
-      - BASE_URL=http://localhost/ #please change to your domain
-      - DATABASE_URL= host=database.postgres user=postgres password=miniflux dbname=miniflux2 sslmode=disable #please change the password
+      - BASE_URL=http://rss.fengkx.top/ #please change to your domain
+      - DATABASE_URL= postgres://postgres:miniflux@database.postgres/postgres?sslmode=disable # please change your password
       - DATABASE_MAX_CONNS=20
       - DATABASE_MIN_CONNS=1
-      - CLEANUP_ARCHIVE_READ_DAYS=60
+      - CLEANUP_ARCHIVE_READ_DAYS=100
       - PORT=8080
       - CREATE_ADMIN=1
       - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=password
-      - HTTP_CLIENT_TIMEOUT=20
+      - ADMIN_PASSWORD=adminpass
+      - HTTP_CLIENT_TIMEOUT=60
     restart: always
-    command: sh -c /usr/bin/miniflux
 
-  service.mercury: # set Mercury Parser API endpoint to `http://service.mercury:3000/parser` on miniflux seeting
-    image: wangqiru/mercury-parser-api:latest
-    container_name: mercury-miniflux
-    expose:
-      - 3000
-    restart: always
