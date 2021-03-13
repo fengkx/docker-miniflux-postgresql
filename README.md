@@ -19,7 +19,7 @@ enjoy it
 Most of the features under the hood has workaround or solution now. I switch it to the offical branch.
 You can find the old docker-compose file in `docker-compose.legacy.yml`
 
-~~ It has these features haven't been merged to miniflux master ~~
+~~It has these features haven't been merged to miniflux master ~~
 
 1. ~~[Regex filter for entry title and content](https://github.com/miniflux/miniflux/pull/372)~~ Miniflux has [filter rules](https://miniflux.app/docs/rules.html#filtering-rules) now.
 2. ~~[Configuratble request timeout for slow network](https://github.com/miniflux/miniflux/pull/373) by setting `REQUEST_MAX_TIMEOUT` env~~
